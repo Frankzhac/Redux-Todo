@@ -8,7 +8,7 @@ class TodosList extends React.Component {
     newTodo: ""
   };
 
- handleChane = e => {
+ handleChange = e => {
    this.setState({
      newTodo: e.target.value
    });
@@ -37,12 +37,31 @@ class TodosList extends React.Component {
           <h4 onClick={e => this.toggleTodos(e, todo.id)} key={todo.id}>
             {todo.done && <i className="fas fa-check-square" />}
             {todo.title}
+          </h4>
         ))}
       </div>
+      <input
+        type="text"
+        onChangle={this.handleChange}
+        value={this.state.newTodo}
+        placeholder="Add item"
+      />
+      <button onClick={this.addNewTodo}>Add new item</button>
      </>
-   )
+   );
  }
-
-
-
 }
+
+const mapStateToProps = state => {
+  return {
+    todos: state.todos
+  };
+};
+
+const mapActionToProps = {
+  addNewTodo,
+  toggleTodos
+};
+
+
+export default connect(mapStateToProps, mapActionToProps)(TodosList);
