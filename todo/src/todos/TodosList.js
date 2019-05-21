@@ -2,6 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { addNewTodo, toggleTodos } from "../actions";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
 
 class TodosList extends React.Component {
   state = {
@@ -9,6 +12,7 @@ class TodosList extends React.Component {
   };
 
  handleChange = e => {
+   e.preventDefault();
    this.setState({
      newTodo: e.target.value
    });
@@ -35,14 +39,14 @@ class TodosList extends React.Component {
       <div className="todo-list">
         {this.props.todos.map(todo => (
           <h4 onClick={e => this.toggleTodos(e, todo.id)} key={todo.id}>
-            {todo.done && <i className="fas fa-check-square" />}
-            {todo.title}
+            {todo.task}
+            {todo.completed && <i className="fa fa-check" />}
           </h4>
         ))}
       </div>
       <input
         type="text"
-        onChangle={this.handleChange}
+        onChange={this.handleChange}
         value={this.state.newTodo}
         placeholder="Add item"
       />
@@ -51,6 +55,7 @@ class TodosList extends React.Component {
    );
  }
 }
+
 
 const mapStateToProps = state => {
   return {
